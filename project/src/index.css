@@ -1,0 +1,267 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-grotesk text-slate-100 bg-dark-900 antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-poppins font-bold;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-opacity-20 backdrop-blur-md bg-white/10 border border-white/20;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+  }
+  
+  .glass-dark {
+    @apply bg-opacity-30 backdrop-blur-md bg-dark-800/30 border border-white/10;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .neon-border {
+    @apply relative;
+  }
+  
+  .neon-border::after {
+    content: '';
+    @apply absolute inset-0 rounded-lg border border-primary-500/50 transition-all duration-300;
+    box-shadow: 0 0 15px theme('colors.primary.500');
+    z-index: -1;
+    animation: borderPulse 3s infinite;
+  }
+  
+  .neon-border:hover::after {
+    @apply border-primary-400/70;
+    box-shadow: 0 0 25px theme('colors.primary.400');
+    animation: borderPulseHover 1.5s infinite;
+  }
+
+  .hover-scale {
+    @apply transition-all duration-300 hover:scale-[1.02];
+  }
+
+  .btn-primary {
+    @apply relative px-6 py-2.5 rounded-lg bg-primary-600 hover:bg-primary-500 
+      text-white font-medium transition-all duration-300 hover:shadow-lg 
+      hover:shadow-primary-600/30 active:scale-95 overflow-hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full;
+    animation: shimmer 3s infinite;
+  }
+
+  .btn-primary:hover::before {
+    animation: shimmer 2s infinite;
+  }
+
+  .btn-secondary {
+    @apply relative px-6 py-2.5 rounded-lg bg-secondary-600 hover:bg-secondary-500 
+      text-white font-medium transition-all duration-300 hover:shadow-lg 
+      hover:shadow-secondary-600/30 active:scale-95 overflow-hidden;
+  }
+
+  .btn-accent {
+    @apply relative px-6 py-2.5 rounded-lg bg-accent-600 hover:bg-accent-500 
+      text-white font-medium transition-all duration-300 hover:shadow-lg 
+      hover:shadow-accent-600/30 active:scale-95 overflow-hidden;
+  }
+
+  .btn-outline {
+    @apply relative px-6 py-2.5 rounded-lg border border-white/20 hover:border-white/40 
+      bg-dark-800/50 backdrop-blur-sm hover:bg-dark-800/80 text-white 
+      font-medium transition-all duration-300 active:scale-95 overflow-hidden;
+  }
+
+  .btn-outline::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full;
+    animation: shimmer 4s infinite;
+  }
+
+  .cyber-grid {
+    background-image: linear-gradient(transparent 95%, theme('colors.primary.500/0.1') 95%),
+                    linear-gradient(90deg, transparent 95%, theme('colors.primary.500/0.1') 95%);
+    background-size: 30px 30px;
+    animation: gridMove 20s linear infinite;
+  }
+
+  .neon-text {
+    text-shadow: 0 0 10px currentColor;
+    animation: textGlow 2s ease-in-out infinite;
+  }
+
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(var(--border-angle), theme('colors.primary.500'), theme('colors.accent.500'));
+    animation: borderRotate 4s linear infinite;
+  }
+
+  .floating {
+    animation: floating 6s ease-in-out infinite;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-accent-400 to-primary-400;
+    background-size: 200% auto;
+    animation: textShimmer 3s linear infinite;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300;
+  }
+
+  .hover-glow:hover {
+    filter: drop-shadow(0 0 10px theme('colors.primary.500'));
+  }
+}
+
+@keyframes gridMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 30px 30px;
+  }
+}
+
+@keyframes textGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px currentColor;
+  }
+  50% {
+    text-shadow: 0 0 20px currentColor;
+  }
+}
+
+@keyframes textShimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes borderPulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.01);
+  }
+}
+
+@keyframes borderPulseHover {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+@keyframes borderRotate {
+  100% {
+    --border-angle: 420deg;
+  }
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-dark-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary-800/80 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary-700;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Particle animation */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle at center, currentColor 0%, transparent 70%);
+  transform-origin: center center;
+}
+
+.particle-1 { animation: particle1 20s linear infinite; }
+.particle-2 { animation: particle2 25s linear infinite; }
+.particle-3 { animation: particle3 30s linear infinite; }
+
+@keyframes particle1 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translate(100px, 50px) rotate(90deg) scale(1.2);
+  }
+  50% {
+    transform: translate(50px, 100px) rotate(180deg) scale(1);
+  }
+  75% {
+    transform: translate(-50px, 50px) rotate(270deg) scale(1.2);
+  }
+}
+
+@keyframes particle2 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translate(-80px, -40px) rotate(120deg) scale(1.3);
+  }
+  66% {
+    transform: translate(80px, -40px) rotate(240deg) scale(1);
+  }
+}
+
+@keyframes particle3 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate(-60px, 60px) rotate(180deg) scale(1.1);
+  }
+}
